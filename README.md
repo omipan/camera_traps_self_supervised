@@ -17,7 +17,7 @@ The organization of the repository is the following:
 
 
 ## Data
-A large repository of camera trap datasets can be found at [website](http://lila.science/), including Caltech Camera Traps (CCT20), Island Conservation Camera Traps (ICCT) and Snapshot Serengeti which were used for our experiments  
+A large repository of camera trap datasets can be found at [lila.science](http://lila.science/), including Caltech Camera Traps (CCT20), Island Conservation Camera Traps (ICCT) and Snapshot Serengeti which were used for our experiments  
 
 
 ### Getting started
