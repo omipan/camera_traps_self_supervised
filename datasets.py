@@ -260,26 +260,26 @@ class IMAGE_DATASET(torch.utils.data.Dataset):
         img1_path = self.im_paths[idx]
         img1 = self.get_image(self.data_root, img1_path)        
         if self.return_single_image:                        
-            op['im'] = self.transform([img1])[0]
+            op['im'] = self.transform(img1)
                 
         else:                                 
             if self.return_seq_pos:
                 # choose an image from the same "sequence", Note this could still select the same one as img1
-                op['im_t1'] = self.transform([img1])[0] 
+                op['im_t1'] = self.transform(img1) 
                 img2_path = np.random.choice([self.im_paths[idx]] + self.seq_paths[idx])
                 img2 = self.get_image(self.data_root, img2_path)
-                op['im_t2'] = self.transform([img2])[0]
+                op['im_t2'] = self.transform(img2)
             
             elif self.return_alt_pos: 
                 # the alt_paths list will be populated periodically (e.g. every epoch) for each image 
-                op['im_t1'] = self.transform([img1])[0]
+                op['im_t1'] = self.transform(img1)
                 img2_path = self.alt_paths[idx]
                 img2 = self.get_image(self.data_root, img2_path)
-                op['im_t2'] = self.transform([img2])[0]
+                op['im_t2'] = self.transform(img2)
                 
             elif self.return_oracle_pos: 
                 # if oracle_pos_noise_amt == 0 there will be no noise
-                op['im_t1'] = self.transform([img1])[0]
+                op['im_t1'] = self.transform(img1)
                 if np.random.rand() >= self.oracle_pos_noise_amt:
                     inds_to_select_from = np.where(self.targets == self.targets[idx])[0]
                 else:
@@ -293,13 +293,14 @@ class IMAGE_DATASET(torch.utils.data.Dataset):
                 idx2 = np.random.choice(inds_to_select_from)
                 img2_path = self.im_paths[idx2]
                 img2 = self.get_image(self.data_root, img2_path)
-                op['im_t2'] = self.transform([img2])[0]
+                op['im_t2'] = self.transform(img2)
         
             else: 
                 # augment_self i.e. two different augmentations of the same image 
                 img2_path = img1_path
-                op['im_t1'] = self.transform([img1])[0]    
-                op['im_t2'] = self.transform([img1])[0]
+
+                op['im_t1'] = self.transform(img1)    
+                op['im_t2'] = self.transform(img1)
         
         return op
 
@@ -320,11 +321,11 @@ class CIFAR10Pair(CIFAR10):
 
         img = Image.fromarray(self.data[idx])
         if self.return_single_image:            
-            op['im'] = self.transform([img])[0]
+            op['im'] = self.transform(img)
                 
         else:             
-            op['im_t1'] = self.transform([img])[0]    
-            op['im_t2'] = self.transform([img])[0]
+            op['im_t1'] = self.transform(img)    
+            op['im_t2'] = self.transform(img)
                         
         return op
 
