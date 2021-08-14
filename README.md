@@ -6,14 +6,14 @@ This repository contains the code for reproducing the results of our ICCV 2021 [
 
 The organization of the repository is the following:
 
-`requirements.txt` Contains the libraries needed to run the code
-`demo.sh` is a sample script that launches parameterized training.
-`main.py` is the main process that orchestrates model training and evaluation.
-`models.py` Model utility functions.
-`datasets.py` Data utility functions i.e. Dataset classes
-`losses.py` has a set of supported loss functions.
-`evaluate.py` contains the code for evaluating model.
-`utils.py` contains useful utility functions, such as feature extraction, linear evaluation etc.
+* `requirements.txt` Contains the libraries needed to run the code
+* `demo.sh` is a sample script that launches parameterized training.
+* `main.py` is the main process that orchestrates model training and evaluation.
+* `models.py` Model utility functions.
+* `datasets.py` Data utility functions i.e. Dataset classes
+* `losses.py` has a set of supported loss functions.
+* `evaluate.py` contains the code for evaluating model.
+* `utils.py` contains useful utility functions, such as feature extraction, linear evaluation etc.
 
 
 ## Data
