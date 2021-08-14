@@ -42,16 +42,6 @@ if __name__ == '__main__':
     # fix as older saved models might not have this  
     args['return_oracle_pos_same_loc'] = False
     
-    
-    # load weights into standard resnet
-    # base_encoder = eval(args['backbone'])
-    # model = base_encoder(pretrained=False)
-    # model.fc = torch.nn.Identity()
-    # 
-    # state_dict = {k.replace("enc.", ""): v for k, v in checkpoint['state_dict'].items()}
-    # state_dict = {k: v for k, v in state_dict.items() if k in model.state_dict()}
-    # msg = model.load_state_dict(state_dict, strict=True)
-
     # load weights into our model
     model = EmbModel(eval(args['backbone']), args).to(args['device'])
     msg = model.load_state_dict(checkpoint['state_dict'], strict=True)

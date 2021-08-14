@@ -7,7 +7,8 @@ from torchvision.datasets import CIFAR10, MNIST
 import pandas as pd
 
 #from torchvision import transforms
-import transforms_mult as transforms
+#import transforms_mult as transforms
+import torchvision.transforms as transforms
 
 from calendar import monthrange
 import math
@@ -230,7 +231,6 @@ class IMAGE_DATASET(torch.utils.data.Dataset):
         
             print('caching images done\n')
                     
-        print(len(self.im_paths))
     def __len__(self):
         return len(self.im_paths)
         

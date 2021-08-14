@@ -260,7 +260,7 @@ if __name__ == '__main__':
     
     parser.add_argument('--pos_type', default='augment_self', 
                         choices=['augment_self', 'seq_positive', 'context_sample', 'image_emb_sample', 
-                                 'context_and_image_emb_sample',, 'oracle_positive' ], type=str)
+                                 'context_and_image_emb_sample', 'oracle_positive' ], type=str)
     parser.add_argument('--con_temp_select', default=0.05, type=float)
     parser.add_argument('--emb_temp_select', default=0.5, type=float)  
     parser.add_argument('--burn_in_select', default=1, type=int)  
@@ -285,7 +285,7 @@ if __name__ == '__main__':
     # args['return_context'] = False
         
     args['data_dir'] = os.path.join('cam_data/', args['dataset'], '')
-    args['metadata'] = os.path.join(args['data_dir'], args['dataset']+'_context_final.csv')
+    args['metadata'] = os.path.join(args['data_dir'], args['dataset']+'_context_file.csv')
     if args['train_from_megadetector']:
         #args['metadata_md'] = os.path.join(args['data_dir'], args['dataset']+'_context_md_final.csv')
         #args['metadata_md'] = os.path.join(args['data_dir'], args['dataset']+'_context_md_extra_final.csv') ## double number of md images
