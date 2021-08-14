@@ -4,6 +4,8 @@ This repository contains the code for reproducing the results of our ICCV 2021 [
 ![Overview of Context approach](figs/siamese_net.png)
 
 
+The organization of the repository is the following:
+
 `requirements.txt` Contains the libraries needed to run the code
 `demo.sh` is a sample script that launches parameterized training.
 `main.py` is the main process that orchestrates model training and evaluation.
@@ -21,3 +23,6 @@ A large repository of camera trap datasets can be found at [website](http://lila
 ### Getting started
 *  Add images and their metadata files under directory cam_data/ i.e. cam_data/cct20/train_images/* , cam_data/cct20/cct20_context_file.csv
 * Install libraries based on requirements.txt
+
+
+# WORK IN PROGRESS
