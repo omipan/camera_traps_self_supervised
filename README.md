@@ -1,8 +1,11 @@
 # Focus on the Positives: Self-Supervised Learning for Biodiversity Monitoring
-This repository contains the code for reproducing the results of our ICCV 2021 [paper](arXiv link coming soon).
+This repository contains the code for reproducing the results of our ICCV 2021 [paper](https://arxiv.org/abs/2108.06435).
 
 ![Overview of Context approach](figs/siamese_net.png)
 
+
+# WORK IN PROGRESS 
+We are in the process of updating this repository. 
 
 The organization of the repository is the following:
 
@@ -24,5 +27,17 @@ A large repository of camera trap datasets can be found at [lila.science](http:/
 *  Add images and their metadata files under directory cam_data/ i.e. cam_data/cct20/train_images/* , cam_data/cct20/cct20_context_file.csv
 * Install libraries based on requirements.txt
 
+## Reference  
+If you find our work useful in your research please consider citing our paper:  
 
-# WORK IN PROGRESS
+```latex
+@inproceedings{PantazisICCV2021,
+  title={Focus on the Positives: Self-Supervised Learning for Biodiversity Monitoring},
+  author={Pantazis, Omiros and 
+          Brostow, Gabriel and 
+          Jones, Kate and 
+          Mac Aodha, Oisin},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  year={2021}
+}
+```
