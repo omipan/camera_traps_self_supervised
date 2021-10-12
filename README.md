@@ -35,11 +35,48 @@ A large repository of camera trap datasets can be found at [lila.science](http:/
 *  The process is orchestrated by the `main.py` python file, where its parameters define the dataset, the self-supevised loss and positive mining technique will be chosen.  Other arguments cover various training or model parameters.
 *  SSL can be replaced by fully supervised or transfer-learning to get a baseline.
 
-*  An example of execution of the above steps is coded in `demo.sh`. The example is for the CCT20 dataset, using SimCLR as the base self-supervised approach.
+<br>
+
+## Tutorial
+
+There follows an example of code executing the above steps. The example is for the CCT20 dataset and uses SimCLR as the base self-supervised learning approach.
+
+### Step 1
+Extract camera trap object regions from images (these can be either available from the given data or acquired from Megadetector)
+```
+python data_processing/preprocess_images.py --dataset cct20
+```
+### Step 2 
+Save a metadata file for the contextual information of each image
+```
+python data_processing/preprocess_context.py --dataset cct20 --annotation_file CaltechCameraTrapsECCV18.json
+```
+
+### Step 3 
+Learn representations with a variety of SSL training settings and evaluate their quality on a downstream task (i.e. species classification). 
+
+The following scenarios cover standard SimCLR, SimCLR with sequence positives and SimCLR with context-informed positives:
+```
+python main.py --train_loss simclr --pos_type augment_self --backbone resnet18 --im_res 112 --dataset cct20 --exp_name "simclr standard"
+```
+
+```
+python main.py --train_loss simclr --pos_type seq_positive --backbone resnet18 --im_res 112 --dataset cct20 --exp_name "simclr seq positive"  
+```
+
+```
+python main.py --train_loss simclr --pos_type context_sample --backbone resnet18 --im_res 112 --dataset cct20 --exp_name "simclr context distance"   
+```
+
+In the above Python scripts important parameters include: `train_loss` which can be simclr, triplet, simsiam (for SSL pretraining) or rand_init,imagenet,supervised (for supervised or transfer-learning baselines). In addition `pos_type` parameter corresponds to the type of SSL approach and can be augment_self (standard augmentation), seq_positive (sequence positives), context_sample (context positives) and oracle (oracle positives).
 
 
 The following graph compares the neighboring embeddings retrieved with our approach versus standard SSL and an Oracle best-case scenario:
-![Qualitative results](figs/qualitative_main_paper.png).
+
+<div style="text-align:center"><img src="figs/qualitative_main_paper.png" />
+</div>
+
+<br>
 
 ## Reference  
 If you find our work useful in your research please consider citing our paper:  
