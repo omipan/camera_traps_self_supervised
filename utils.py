@@ -2,12 +2,11 @@ from sklearn.svm import LinearSVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import accuracy_score, balanced_accuracy_score
+from sklearn.preprocessing import StandardScaler, normalize
 import numpy as np
 import torch
 import matplotlib.pyplot as plt 
-
-from sklearn.metrics import accuracy_score, balanced_accuracy_score
-from sklearn.preprocessing import StandardScaler, normalize
 import cv2
 
 def train_linear(x_train_ip, y_train, x_test_ip, y_test, max_iter, grid_search):

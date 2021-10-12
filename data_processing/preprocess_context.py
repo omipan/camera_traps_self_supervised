@@ -10,9 +10,7 @@ original_data_dir = '/media/GRUMPY_HDD/omi_data/cct20/'
 ## image folders under /cct20/ should be in IMAGE LOADER  
 
 def main(args):
-    
-    
-    
+
     ## Get cropped image path information (assumes preprocess_images.py has already run)
 
     # data split strategy may vary per dataset

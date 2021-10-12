@@ -2,3 +2,4 @@ models/
 results/
 cam_data/
 __pycache__
+.ipynb_checkpoints/
