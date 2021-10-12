@@ -132,10 +132,8 @@ def main(args):
             train_set = Subset(train_set, train_inds_lin_1)
         elif args['supervised_amt'] == 10:
             train_set = Subset(train_set, train_inds_lin_10)
-
     train_loader = DataLoader(train_set, batch_size=args['batch_size'], shuffle=True,
                               num_workers=args['workers'], drop_last=False)
-            
     # data loaders - used for linear evaluation 
     train_loader_lin_1   = DataLoader(Subset(train_set_lin, train_inds_lin_1),
                                       batch_size=args['batch_size'], num_workers=args['workers'], shuffle=False)

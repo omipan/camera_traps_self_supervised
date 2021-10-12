@@ -12,6 +12,7 @@ import torchvision.transforms as transforms
 
 from calendar import monthrange
 import math
+import ast
 
 
 def get_dataset(args):
@@ -61,6 +62,8 @@ def get_dataset(args):
         train_set = IMAGE_DATASET(args, train_transform, ['train_images', 'trans_val_images', 'cis_val_images'], 
                                  args['return_alt_pos'], args['return_seq_pos'], args['return_oracle_pos'], 
                                   False, args['cache_images'])
+
+        
 
         # ['train_images', 'trans_val_images', 'cis_val_images']
         train_set_lin = IMAGE_DATASET(args, test_transform, ['train_images'], 
@@ -164,13 +167,13 @@ class IMAGE_DATASET(torch.utils.data.Dataset):
         
         if train_from_megadetector:
             print('here')
-            da = pd.read_csv(args['metadata_md'])
+            da = pd.read_csv(args['metadata_md'],converters={'prev_same_next_img_boxes': ast.literal_eval})
             da['im_id'] = np.arange(da.shape[0])
             un_targets, targets = np.unique(da['category_id'].values, return_inverse=True) 
             da['category_id_un'] = targets
             self.num_classes = 20
         else:
-            da = pd.read_csv(args['metadata'])
+            da = pd.read_csv(args['metadata'],converters={'prev_same_next_img_boxes': ast.literal_eval})
             da['im_id'] = np.arange(da.shape[0])
             # get the class labels before some of the data is excluded
             un_targets, targets = np.unique(da['category_id'].values, return_inverse=True) 
@@ -182,8 +185,8 @@ class IMAGE_DATASET(torch.utils.data.Dataset):
 
         # only use the relevant split's data
         da = da[da['img_set'].isin(split_names)]
-        
-        da['prev_same_next_img_boxes'] = da['prev_same_next_img_boxes'].apply(lambda x: eval(x))
+
+        #da['prev_same_next_img_boxes'] = da['prev_same_next_img_boxes'].apply(lambda x: x))
         
         inds_to_keep = da['im_id'].values
         self.context = torch.tensor(context_dict['con_standard'][inds_to_keep, :])
@@ -226,6 +229,7 @@ class IMAGE_DATASET(torch.utils.data.Dataset):
         if self.cache_images:
             print('caching images ...')
             for pp in self.im_paths:
+                
                 self.im_cache[pp] = loader(self.data_root + pp)                  
                       
         
