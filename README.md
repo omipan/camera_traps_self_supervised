@@ -70,12 +70,6 @@ python main.py --train_loss simclr --pos_type context_sample --backbone resnet18
 
 In the above Python scripts important parameters include: `train_loss` which can be simclr, triplet, simsiam (for SSL pretraining) or rand_init,imagenet,supervised (for supervised or transfer-learning baselines). In addition `pos_type` parameter corresponds to the type of SSL approach and can be augment_self (standard augmentation), seq_positive (sequence positives), context_sample (context positives) and oracle (oracle positives).
 
-
-The following graph compares the neighboring embeddings retrieved with our approach versus standard SSL and an Oracle best-case scenario:
-
-<div style="text-align:center"><img src="figs/qualitative_main_paper.png" />
-</div>
-
 <br>
 
 ## Reference  
