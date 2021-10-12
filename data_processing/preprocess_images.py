@@ -12,7 +12,66 @@ import pandas as pd
 from PIL import Image
 import numpy as np
 
-from utils import modify_polygon_coords,image_load_cv2
+### Camera trap preprocessing utils
+
+def image_load_cv2(path,
+                   convert_to_rgb=False):
+    '''
+    Load image and optionally convert to rgb as cv2 reads in bgr
+    Args:
+        path: image filepath
+        convert_to_rgb: Boolean defining if we want conversion to RGB
+    Returns:
+        Loaded image
+    '''
+
+    # load image and convert to rgb as cv2 reads in bgr
+    try:
+        img = cv2.imread(path)
+        if convert_to_rgb:
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        return img
+    except Exception as ex:
+        print('Tried to load and convert image from path {}'.format(path))
+        template = "An exception of type {0} occurred for. Arguments:\n{1!r}"
+        message = template.format(type(ex).__name__, ex.args)
+        print(message)
+        return None
+
+def convert_ratio_to_dim(box, w_img, h_img):
+    '''
+    Converts an xywh box  that's normalized by image dimensions to original coordinates within image
+    Args:
+        box:  bounding box coordinates in the form [x,y,w,h] where x is distance from left,
+        y is distance from top
+        w_img: width of the image
+        h_img: height of the image
+    Returns:
+        Box coordinates in real (not normalized) dimensions.
+    '''
+
+    norm_per_dimension = [w_img, h_img, w_img, h_img]
+    box_original = [d * n for d, n in zip(box, norm_per_dimension)]
+    return box_original
+
+def modify_polygon_coords(coco_dataset):
+    dataset = copy.deepcopy(coco_dataset)
+    for ann_id in dataset.anns:
+
+        ann_object = dataset.anns[ann_id]
+        if 'bbox' in ann_object:
+            img_object = dataset.imgs[ann_object['image_id']]
+            #if MD
+            #new_seg = convert_polygon_ratio_to_dim(ann["segmentation"][0],img['width'],img['height'])
+            #ann["segmentation"] = [new_seg]
+            new_box = convert_ratio_to_dim(ann_object["bbox"], img_object['width'], img_object['height'])
+            ann_object['area'] = new_box[2] * new_box[3]
+            ann_object["bbox"] = new_box
+        else:
+            ann_object['area'] = 0
+            ann_object["bbox"] = [0,0,0,0]
+
+    return dataset
 
 class Annotation_Filter():
 
@@ -287,14 +346,12 @@ if __name__ == '__main__':
     # turn the args into a dictionary
     args = vars(parser.parse_args())
 
-
-    args['data_dir'] = '/media/GRUMPY_HDD/omi_data/'
+    args['data_dir'] = '/path/to/dataset/' ## THIS should be replaced with the directory of the downloaded data
     args['input_root_dir'] = args['data_dir'] + args['dataset'] +'/'
     args['output_root_dir'] = 'cam_data/{}/'.format(args['dataset'])
     args['metadata'] = os.path.join(args['output_root_dir'], args['dataset']+'_context_file.csv')
     if args['dataset'] == 'kenya':
          args['ann_coco_file'] = args['input_root_dir']+'kenya_coco.json'
-
     # objects_of_interest = ['animal'] # list of coco objects to keep
 
     main(args)

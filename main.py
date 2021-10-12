@@ -105,11 +105,11 @@ def select_train_items(model, args, train_loader):
     train_loader.dataset.update_alternative_positives(sample_inds)
 
     # check how often the same class is picked - just for debugging
-    targets = train_loader.dataset.targets
-    acc = torch.tensor(targets) == torch.tensor(targets)[sample_inds.cpu()]
-    acc = acc.float().mean()
-    same_inds = (sample_inds.cpu() == torch.arange(sample_inds.shape[0])).float().mean()
-    print(round(acc.item(), 3), round(same_inds.item(), 3))
+    #targets = train_loader.dataset.targets
+    #acc = torch.tensor(targets) == torch.tensor(targets)[sample_inds.cpu()]
+    #acc = acc.float().mean()
+    #same_inds = (sample_inds.cpu() == torch.arange(sample_inds.shape[0])).float().mean()
+    #print(round(acc.item(), 3), round(same_inds.item(), 3))
     
     
 def main(args):

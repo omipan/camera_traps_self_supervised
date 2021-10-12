@@ -6,8 +6,6 @@ import random
 import datetime
 import argparse
 
-original_data_dir = '/media/GRUMPY_HDD/omi_data/cct20/'
-## image folders under /cct20/ should be in IMAGE LOADER  
 
 def main(args):
 
@@ -34,7 +32,7 @@ def main(args):
     path_to_box['area'] = path_to_box['width']*path_to_box['height']
 
     ## Load annotation information (not to be used during self-supervised stage)
-    with open('{}{}'.format(args['original_data_dir'],args['annotation_file'])) as f:
+    with open('{}{}'.format(args['input_root_dir'],args['annotation_file'])) as f:
         info_cct = json.load(f)
     cct_ann_df = pd.DataFrame(info_cct['annotations'])
 
@@ -48,7 +46,7 @@ def main(args):
     cct_ann_df = cct_ann_df.merge(path_to_box,left_on=['image_id','x1','y1','width','height'],right_on=['img_id','x1','y1','width','height'],how='left')
 
     ## Load image-level information
-    with open('{}{}'.format(args['original_data_dir'],args['annotation_file'])) as f:
+    with open('{}{}'.format(args['input_root_dir'],args['annotation_file'])) as f:
         info_cct = json.load(f)
     cct_info_df = pd.DataFrame(info_cct['images'])
     cct_info_df = cct_info_df.rename(columns={'height':'img_height','width':'img_width'})
@@ -66,6 +64,7 @@ def main(args):
     context_info['datetime'] = pd.to_datetime(context_info['datetime'])
     context_info['species'] = context_info.img_name.apply(lambda x: '_'.join(x.split('_')[2:]).replace('.jpg',''))
     
+    print('Calculating images in the same sequence may take some minutes...')
     ## define same sequence images (previous or next burst taken a short period of time around a given image) to use as positives
     sequence_df = context_info.copy()
     sequence_df = sequence_df[['img_id','location','datetime','img_name','img_path']].drop_duplicates()
@@ -76,8 +75,8 @@ def main(args):
 
     count=0
     for idx,row in sequence_df.iterrows():
-        if count%1000==0:
-            print(count/len(sequence_df))
+        if count%5000==0:
+            print("{}percent done".format(np.round(count/len(sequence_df))))
         count+=1
         seq_start = row.datetime-seconds_gap
         seq_end = row.datetime+seconds_gap
@@ -129,8 +128,9 @@ if __name__ == '__main__':
     
     # turn the args into a dictionary
     args = vars(parser.parse_args())
-
-    args['original_data_dir'] = '/media/GRUMPY_HDD/omi_data/{}/'.format(args['dataset']) ## should point to where you have downloaded the data
+    
+    args['data_dir'] = '/path/to/dataset/' ## THIS should be replaced with the directory of the downloaded data
+    args['input_root_dir'] = args['data_dir'] + args['dataset'] +'/'
     args['image_dir'] = 'cam_data/{}/'.format(args['dataset'])
     
     main(args)

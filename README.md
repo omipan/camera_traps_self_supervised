@@ -19,12 +19,12 @@ The organization of the repository is the following:
 
 
 ## Datasets
-A large repository of camera trap datasets can be found at [lila.science](http://lila.science/), including Caltech Camera Traps (CCT20), Island Conservation Camera Traps (ICCT) and Snapshot Serengeti which were used for our main paper experiments.
+A large repository of camera trap data can be found at [lila.science](http://lila.science/), including [Caltech Camera Traps (CCT20)](https://beerys.github.io/CaltechCameraTraps/), [Island Conservation Camera Traps (ICCT)](https://lila.science/datasets/island-conservation-camera-traps/) and [Snapshot Serengeti](https://lila.science/datasets/snapshot-serengeti) datasets which were used for our main paper experiments.
 
 
 ## Getting started
-*  Download images and the corresponding annotation file that includes the bounding boxes into a local path (/path/to/downloaded_data/). Note: If annotations are not available for a camera trap dataset, regions can be extracted by utilizing the [MegaDetector] (https://github.com/microsoft/CameraTraps/blob/master/megadetector.md) developed by Microsoft AI for Earth, something we tried on the supplemental material of the paper.
-*  Install libraries and dependencies based on `requirements.txt`
+*  Download images and the corresponding annotation file that includes the bounding boxes into a local path (/path/to/downloaded_data/). Note: If annotations are not available for a camera trap dataset, regions can be extracted by utilizing the [MegaDetector](https://github.com/microsoft/CameraTraps/blob/master/megadetector.md) developed by Microsoft AI for Earth, something we tried on the supplemental material of the paper.
+*  Install libraries and dependencies based on  `requirements.txt`.
 
 ## Data preprocessing
 *  Filter and generate the training images by extracting the regions that correspond to the bounding box objects (i.e. animals) and store under cam_data/.
