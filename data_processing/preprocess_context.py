@@ -106,7 +106,6 @@ def main(args):
     context_info['is_in_train_10perc'] = False
     species_list = list(context_info.query('img_set=="train"').species.unique())
     for perc in [0.01,0.1]:
-        context_info['is_in_train_{}perc'] = False
         for species in species_list:
             sub_df = context_info.query('img_set=="train"').query('species==@species')
             random.seed(args['seed']) # change to get a different subsample per species
