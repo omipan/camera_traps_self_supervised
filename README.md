@@ -1,5 +1,6 @@
 # Focus on the Positives: Self-Supervised Learning for Biodiversity Monitoring
-This repository contains the code for reproducing the results of our ICCV 2021 [paper](https://arxiv.org/abs/2108.06435). The following figure illustrates our context positive approach within a SSL framework.
+This repository contains the code for reproducing the results of our ICCV 2021 [paper](https://arxiv.org/abs/2108.06435). A summary video can be found [here](https://youtu.be/MRQ26QNGJS4)
+The following figure illustrates our context positive approach within a SSL framework.
 
 ![Overview of Context approach](figs/siamese_net.png).
 
