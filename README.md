@@ -8,7 +8,6 @@ The following figure illustrates our context positive approach within a SSL fram
 The organization of the repository is the following:
 
 * `requirements.txt` Contains the libraries needed to run the code
-* `demo.sh` is a sample script that launches parameterized training.
 * `main.py` is the main process that orchestrates model training and evaluation.
 * `models.py` Model utility functions.
 * `datasets.py` Data utility functions i.e. Dataset classes
